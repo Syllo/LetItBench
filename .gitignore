@@ -1,0 +1,3 @@
+benchmarks_directory/*
+benchmarks_result_directory/*
+build/*

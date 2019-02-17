@@ -1,8 +1,8 @@
-Adaptive Bench
-==============
+Leverage Estimate by Transforming Inexact-Tough Benchmarks (LetItB)
+===================================================================
 
-Adaptive Bench provides a set of non-optimized application which can be the target of helper tools to leverage the adaptive opportunities present in
-these applications.
+LetItB provides a set of non-optimized and approximation-resilient application which can be targeted by automatic tools to leverage the approximation
+opportunities that they offer.
 
 Table of Contents
 -----------------
@@ -23,7 +23,7 @@ Requirements
 Benchmarks
 ----------
 
-The benchmarks configuration resides in the `AdaptiveBench/benchmarks_configuration` folder.
+The benchmarks configuration resides in the `LetItB/benchmarks_configuration` folder.
 This folder contains:
 
 - `MasterConfig.cmake`
@@ -43,11 +43,11 @@ This folder contains:
 Follow the following instructions in a terminal:
 
 ```bash
-git clone https://github.com/Syllo/AdaptiveBench.git
-mkdir -p AdaptiveBench/build && cd AdaptiveBench/build
+git clone https://github.com/Syllo/LetItB.git
+mkdir -p LetItB/build && cd LetItB/build
 cmake ..
 make bench       # To run only one time
 make batch-bench # To run the benchmarks multiple times in a row (see Benchmarks Configuration)
 ```
 
-The results will be available in the directory `AdaptiveBench/benchmarks_result_directory`.
+The results will be available in the directory `LetItB/benchmarks_result_directory`.

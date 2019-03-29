@@ -76,7 +76,7 @@ add_custom_target(${KMEANS_BENCH_TARGET_PREFIX}
   COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" "${KMEANS_RESULTS_DIR}")
 foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
-  list(APPEND KMEANS_BENCH_NAMES ${bench_name})
+  list(APPEND KMEANS_BENCH_TARGET_LIST ${bench_name})
   list(LENGTH ${BENCHMARK} bench_num_args)
   if(${bench_num_args} GREATER 1)
     list(SUBLIST ${BENCHMARK} 1 -1 bench_arguments)
@@ -93,6 +93,13 @@ foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
 endforeach()
 
 add_dependencies(bench kmeans-bench)
+
+# Benchmark results gathering
+
+set(KMEANS_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/KMeansGathered.dat")
+set(KMEANS_DATA_COLUMN_NAME "Time")
+set(KMEANS_DATA_EXTRACT_FN
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
 
 # Fetching project
 
@@ -122,5 +129,3 @@ if (NOT DEFINED KMEANS_BATCH_NUM)
     set(KMEANS_BATCH_NUM 1)
   endif()
 endif()
-
-list(JOIN KMEANS_BENCH_NAMES " " KMEANS_BENCH_TARGET_SUFFIX)

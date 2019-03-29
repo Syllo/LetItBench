@@ -51,6 +51,13 @@ set(FLUIDSOLVER_BENCHMARKS
   huge_3d
   )
 
+# Benchmark results gathering
+
+set(FLUIDSOLVER_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/fluidSolverGathered.dat")
+set(FLUIDSOLVER_DATA_COLUMN_NAME "Time")
+set(FLUIDSOLVER_DATA_EXTRACT_FN
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
+
 # Register bench targets
 
 set(FLUIDSOLVER_BENCH_TARGET_PREFIX "fluidsolver-bench")
@@ -61,7 +68,7 @@ add_custom_target(${FLUIDSOLVER_BENCH_TARGET_PREFIX}
   COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${FLUIDSOLVER_RESULTS_DIR})
 foreach(BENCHMARK IN LISTS FLUIDSOLVER_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
-  list(APPEND FLUIDSOLVER_BENCH_NAMES ${bench_name})
+  list(APPEND FLUIDSOLVER_BENCH_TARGET_LIST ${bench_name})
   list(LENGTH ${BENCHMARK} bench_num_args)
   if(${bench_num_args} GREATER 1)
     list(SUBLIST ${BENCHMARK} 1 -1 bench_arguments)
@@ -107,5 +114,3 @@ if (NOT DEFINED FLUIDSOLVER_BATCH_NUM)
     set(FLUIDSOLVER_BATCH_NUM 1)
   endif()
 endif()
-
-list(JOIN FLUIDSOLVER_BENCH_NAMES " " FLUIDSOLVER_BENCH_TARGET_SUFFIX)

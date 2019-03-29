@@ -2,152 +2,32 @@
 
 if ! command tput 2>/dev/null 1>&2 && [ $(tput colors) -ge 16 ]
 then
-  red_color="\033[31m"
   cian_color="\033[36m"
+  magenta_color="\033[35m"
   reset_color="\033[0m"
 fi
 
-read_char() {
-  old=$(stty -g)
-  stty raw -echo min 0 time 50
-  eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
-  stty "$old"
-}
+#read_char() {
+#  old=$(stty -g)
+#  stty raw -echo min 0 time 50
+#  eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
+#  stty "$old"
+#}
 
-echo "The following benchmarks will be executed:"
+#"do_bench=true"
+#"printf \"\\\\n[$\{cian_red\}BENCH intera$\{reset_color\}] Do you wish to execute this application batch? (Y/n) 5 seconds to respond...\""
+#"read_char value"
+#"if [ \"x$value\" != \"x\" ]"
+#"then"
+#"  if [ \"$value\" = n ] || [ \"$value\" = N ]"
+#"  then"
+#"    do_bench=false"
+#"  fi"
+#"fi"
+#"if [ $do_bench = \"true\" ]"
+#"then"
+#"fi"
 
-# HeatSolver
+printf "[${cian_color}BENCH INFO${reset_color}] Executing benchmark in batch mode\n\n"
 
-if [ @HEATSOLVER_BATCH_NUM@ -gt 0 ]
-then
-  printf "\\n  HeatSolver (@HEATSOLVER_BATCH_NUM@ runs):\\n"
-  for i in @HEATSOLVER_BENCH_TARGET_SUFFIX@
-  do
-    echo "    - $i"
-  done
-fi
-
-do_bench=true
-printf "\\nDo you wish to continue? (Y/n) 5 seconds to respond..."
-read_char value
-echo ""
-if [ "x$value" != "x" ]
-then
-  if [ "$value" = n ] || [ "$value" = N ]
-  then
-    do_bench=false
-  fi
-fi
-
-if [ @HEATSOLVER_BATCH_NUM@ -gt 0 ] && [ $do_bench = "true" ]
-then
-  n_batch=1
-  while [ $n_batch -le @HEATSOLVER_BATCH_NUM@ ]
-  do
-    printf "\\n[${cian_color}BENCH INFO${reset_color}] Running batch $n_batch/@HEATSOLVER_BATCH_NUM@ of HeatSolver\\n\\n"
-    @CMAKE_COMMAND@ --build @PROJECT_BINARY_DIR@ --target @HEATSOLVER_BENCH_TARGET_PREFIX@
-    n_batch=$((n_batch+1))
-  done
-fi
-
-# GameOfLife
-
-if [ @GAMEOFLIFE_BATCH_NUM@ -gt 0 ]
-then
-  printf "\\n  Game of Life (@GAMEOFLIFE_BATCH_NUM@ runs):\\n"
-  for i in @GAMEOFLIFE_BENCH_TARGET_SUFFIX@
-  do
-    echo "    - $i"
-  done
-fi
-
-do_bench=true
-printf "\\nDo you wish to continue? (Y/n) 5 seconds to respond..."
-read_char value
-echo ""
-if [ "x$value" != "x" ]
-then
-  if [ "$value" = n ] || [ "$value" = N ]
-  then
-    do_bench=false
-  fi
-fi
-
-if [ @GAMEOFLIFE_BATCH_NUM@ -gt 0 ] && [ $do_bench = "true" ]
-then
-  n_batch=1
-  while [ $n_batch -le @GAMEOFLIFE_BATCH_NUM@ ]
-  do
-    printf "\\n[${cian_color}BENCH INFO${reset_color}] Running batch $n_batch/@GAMEOFLIFE_BATCH_NUM@ of Game of Life\\n\\n"
-    @CMAKE_COMMAND@ --build @PROJECT_BINARY_DIR@ --target @GAMEOFLIFE_BENCH_TARGET_PREFIX@
-    n_batch=$((n_batch+1))
-  done
-fi
-
-# FluidSolver
-
-if [ @FLUIDSOLVER_BATCH_NUM@ -gt 0 ]
-then
-  printf "\\n  FluidSolver (@FLUIDSOLVER_BATCH_NUM@ runs):\\n"
-  for i in @FLUIDSOLVER_BENCH_TARGET_SUFFIX@
-  do
-    echo "    - $i"
-  done
-fi
-
-do_bench=true
-printf "\\nDo you wish to continue? (Y/n) 5 seconds to respond..."
-read_char value
-echo ""
-if [ "x$value" != "x" ]
-then
-  if [ "$value" = n ] || [ "$value" = N ]
-  then
-    do_bench=false
-  fi
-fi
-
-if [ @FLUIDSOLVER_BATCH_NUM@ -gt 0 ] && [ $do_bench = "true" ]
-then
-  n_batch=1
-  while [ $n_batch -le @FLUIDSOLVER_BATCH_NUM@ ]
-  do
-    printf "\\n[${cian_color}BENCH INFO${reset_color}] Running batch $n_batch/@FLUIDSOLVER_BATCH_NUM@ of FluidSolver\\n\\n"
-    @CMAKE_COMMAND@ --build @PROJECT_BINARY_DIR@ --target @FLUIDSOLVER_BENCH_TARGET_PREFIX@
-    n_batch=$((n_batch+1))
-  done
-fi
-
-# K-Means
-
-if [ @KMEANS_BATCH_NUM@ -gt 0 ]
-then
-  printf "\\n  K-Means (@KMEANS_BATCH_NUM@ runs):\\n"
-  for i in @KMEANS_BENCH_TARGET_SUFFIX@
-  do
-    echo "    - $i"
-  done
-fi
-
-do_bench=true
-printf "\\nDo you wish to continue? (Y/n) 5 seconds to respond..."
-read_char value
-echo ""
-if [ "x$value" != "x" ]
-then
-  if [ "$value" = n ] || [ "$value" = N ]
-  then
-    do_bench=false
-  fi
-fi
-
-if [ @KMEANS_BATCH_NUM@ -gt 0 ] && [ $do_bench = "true" ]
-then
-  n_batch=1
-  while [ $n_batch -le @KMEANS_BATCH_NUM@ ]
-  do
-    printf "\\n[${cian_color}BENCH INFO${reset_color}] Running batch $n_batch/@KMEANS_BATCH_NUM@ of K-Means\\n\\n"
-    @CMAKE_COMMAND@ --build @PROJECT_BINARY_DIR@ --target @KMEANS_BENCH_TARGET_PREFIX@
-    n_batch=$((n_batch+1))
-  done
-fi
+@BATCH_COMMANDS_SH@

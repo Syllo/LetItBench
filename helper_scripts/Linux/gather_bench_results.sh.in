@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if ! command tput 2>/dev/null 1>&2 && [ $(tput colors) -ge 16 ]
+then
+  cian_color="\033[36m"
+  magenta_color="\033[35m"
+  reset_color="\033[0m"
+fi
+
+printf "[${cian_color}BENCH INFO${reset_color}] Running benchmark gathering scripts\n"
+
+@GATHER_COMMANDS_SH@

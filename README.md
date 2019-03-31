@@ -1,7 +1,7 @@
-Leverage Estimate by Transforming Inexact-Tough Benchmarks (LetItB)
-===================================================================
+Lenient to Errors, Transformations, Irregularities and Turbulence Benchmarks (LetItBench)
+=========================================================================================
 
-LetItB provides a set of non-optimized and approximation-resilient application which can be targeted by automatic tools to leverage the approximation
+LetItBench provides a set of non-optimized and approximation-resilient application which can be targeted by automatic tools to leverage the approximation
 opportunities that they offer.
 
 Table of Contents
@@ -23,7 +23,9 @@ Requirements
 Benchmarks
 ----------
 
-The benchmarks configuration resides in the `LetItB/benchmarks_configuration` folder.
+### Benchmarks configuration
+
+The benchmarks configuration resides in the `LetItBench/benchmarks_configuration` folder.
 This folder contains:
 
 - `MasterConfig.cmake`
@@ -43,11 +45,12 @@ This folder contains:
 Follow the following instructions in a terminal:
 
 ```bash
-git clone https://github.com/Syllo/LetItB.git
-mkdir -p LetItB/build && cd LetItB/build
+git clone https://github.com/Syllo/LetItBench.git
+mkdir -p LetItBench/build && cd LetItBench/build
 cmake ..
 make bench       # To run only one time
-make batch-bench # To run the benchmarks multiple times in a row (see Benchmarks Configuration)
+make batch-bench # To run the benchmarks multiple times in a row (see BATCH_NUM in Configuration)
+make gather-data # To gather the data from all the runs into a single file
 ```
 
-The results will be available in the directory `LetItB/benchmarks_result_directory`.
+The results will be available in the directory `LetItBench/benchmarks_result_directory`.

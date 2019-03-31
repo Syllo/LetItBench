@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(somerandomname VERSION 1.0
-  DESCRIPTION "Approximate Computing Benchmarks"
+project(LetItBench VERSION 1.0
+  DESCRIPTION "Lenient to Errors, Transformations, Irregularities and Turbulence Benchmarks"
   LANGUAGES C)
 
 set(default_build_type "Benchmark")

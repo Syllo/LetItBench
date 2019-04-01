@@ -43,7 +43,7 @@ function(generate_data_gathering_unix OUTPUT_LIST BENCH_INPUT_NAME)
       list(GET ${BENCH_NAME}_DATA_EXTRACT_FN ${iterator_val} EXTRACT_COMMAND)
       list(GET ${BENCH_NAME}_DATA_COLUMN_NAME ${iterator_val} DATA_NAME)
       list(APPEND SCRIPT_LIST
-        "    extracted_value=$((${EXTRACT_COMMAND}) | tr -d \"\\n\")"
+        "    extracted_value=$( (${EXTRACT_COMMAND}) | tr -d \"\\n\" )"
         "    if [ \"x$extracted_value\" = x ]"
         "    then"
         "      printf \" NO_VAL_${DATA_NAME}\" >> ${${BENCH_NAME}_GATHER_LOCATION}"

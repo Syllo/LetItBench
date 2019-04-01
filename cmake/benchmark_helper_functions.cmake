@@ -1,0 +1,19 @@
+function(generate_benchmark_targets_for BENCH_INPUT_NAME)
+  string(TOUPPER ${BENCH_INPUT_NAME} BENCH_NAME)
+  string(TOLOWER ${BENCH_NAME} BENCH_LOWER_NAME)
+
+  set(BENCH_RUN_TARGET ${BENCH_LOWER_NAME}-run-benchmarks)
+  add_custom_target(${BENCH_RUN_TARGET} DEPENDS ${${BENCH_NAME}_RESULTS_DIR})
+
+  set(BENCH_RUN_AND_MOVE_TARGET ${BENCH_RUN_TARGET}-move)
+  add_custom_target(${BENCH_RUN_AND_MOVE_TARGET}
+    COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" "${${BENCH_NAME}_RESULTS_DIR}"
+    VERBATIM)
+
+  add_dependencies(${BENCH_RUN_AND_MOVE_TARGET} ${BENCH_RUN_TARGET})
+
+  add_dependencies(bench ${BENCH_RUN_AND_MOVE_TARGET})
+
+  set(${BENCH_NAME}_RUN_BENCHMARKS_TARGET ${BENCH_RUN_TARGET} PARENT_SCOPE)
+  set(${BENCH_NAME}_RUN_BENCHMARKS_AND_MOVE_TARGET ${BENCH_RUN_AND_MOVE_TARGET} PARENT_SCOPE)
+endfunction()

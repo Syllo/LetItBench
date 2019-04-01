@@ -76,12 +76,9 @@ set(HEATSOLVER_DATA_EXTRACT_FN
 
 # Register bench targets
 
-set(HEATSOLVER_BENCH_TARGET_PREFIX "heatsolver-bench")
+set(HEATSOLVER_BENCHMARKS_TARGET heatsolver-benchmark)
 
-add_custom_target(${HEATSOLVER_BENCH_TARGET_PREFIX}-move
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${HEATSOLVER_RESULTS_DIR})
-add_custom_target(${HEATSOLVER_BENCH_TARGET_PREFIX}
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${HEATSOLVER_RESULTS_DIR})
+add_custom_target(${HEATSOLVER_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS HEATSOLVER_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
   list(APPEND HEATSOLVER_BENCH_TARGET_LIST ${bench_name})
@@ -91,16 +88,20 @@ foreach(BENCHMARK IN LISTS HEATSOLVER_BENCHMARKS)
   else()
     unset(bench_arguments)
   endif()
-  add_custom_target("${HEATSOLVER_BENCH_TARGET_PREFIX}-${bench_name}"
+  add_custom_target("${HEATSOLVER_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory ${HEATSOLVER_RESULTS_DIR}
     COMMAND heatsolver ${bench_arguments} ${heat_common_arguments} 1> "${HEATSOLVER_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from heatSolver: ${bench_name}"
     VERBATIM)
-  add_dependencies(${HEATSOLVER_BENCH_TARGET_PREFIX} "${HEATSOLVER_BENCH_TARGET_PREFIX}-${bench_name}")
+  add_dependencies(${HEATSOLVER_BENCHMARKS_TARGET} "${HEATSOLVER_BENCHMARKS_TARGET}-${bench_name}")
 endforeach()
 
-add_dependencies(bench heatsolver-bench)
+add_custom_command(OUTPUT "${HEATSOLVER_RESULTS_DIR}"
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${HEATSOLVER_BENCHMARKS_TARGET} -j 1
+  VERBATIM)
+
+generate_benchmark_targets_for(heatsolver)
 
 # Fetching project
 

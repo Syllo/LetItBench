@@ -15,7 +15,7 @@ function(generate_batch_for_bench_unix OUTPUT_LIST BENCH_INPUT_NAME)
       "while [ $n_batch -le ${${BENCH_NAME}_BATCH_NUM} ]"
       "do"
       "  printf \"[$\{cian_color\}BENCH RUN$\{reset_color\}] Running bench set for application ${BENCH_LOWER_NAME} ($n_batch/${${BENCH_NAME}_BATCH_NUM})\\n\\n\""
-      "  ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${${BENCH_NAME}_BENCH_TARGET_PREFIX}"
+      "  ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${${BENCH_NAME}_RUN_BENCHMARKS_AND_MOVE_TARGET}"
       "  n_batch=$((n_batch+1))"
       "  printf \"\\n\""
       "done"

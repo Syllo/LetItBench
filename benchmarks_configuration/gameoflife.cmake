@@ -60,12 +60,9 @@ set(GAMEOFLIFE_DATA_EXTRACT_FN
 
 # Register bench targets
 
-set(GAMEOFLIFE_BENCH_TARGET_PREFIX "gameoflife-bench")
+set(GAMEOFLIFE_BENCHMARKS_TARGET gameoflife-benchmark)
 
-add_custom_target(${GAMEOFLIFE_BENCH_TARGET_PREFIX}-move
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${GAMEOFLIFE_RESULTS_DIR})
-add_custom_target(${GAMEOFLIFE_BENCH_TARGET_PREFIX}
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${GAMEOFLIFE_RESULTS_DIR})
+add_custom_target(${GAMEOFLIFE_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS GAMEOFLIFE_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
   list(APPEND GAMEOFLIFE_BENCH_TARGET_LIST ${bench_name})
@@ -75,16 +72,20 @@ foreach(BENCHMARK IN LISTS GAMEOFLIFE_BENCHMARKS)
   else()
     unset(bench_arguments)
   endif()
-  add_custom_target("${GAMEOFLIFE_BENCH_TARGET_PREFIX}-${bench_name}"
+  add_custom_target("${GAMEOFLIFE_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory ${GAMEOFLIFE_RESULTS_DIR}
     COMMAND gol ${bench_arguments} ${gameOfLife_common_arguments} 1> "${GAMEOFLIFE_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from gameOfLife: ${bench_name}"
     VERBATIM)
-  add_dependencies(${GAMEOFLIFE_BENCH_TARGET_PREFIX} "${GAMEOFLIFE_BENCH_TARGET_PREFIX}-${bench_name}")
+  add_dependencies(${GAMEOFLIFE_BENCHMARKS_TARGET} "${GAMEOFLIFE_BENCHMARKS_TARGET}-${bench_name}")
 endforeach()
 
-add_dependencies(bench gameoflife-bench)
+add_custom_command(OUTPUT "${GAMEOFLIFE_RESULTS_DIR}"
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${GAMEOFLIFE_BENCHMARKS_TARGET} -j 1
+  VERBATIM)
+
+generate_benchmark_targets_for(gameoflife)
 
 # Fetching project
 

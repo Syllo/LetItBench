@@ -31,6 +31,7 @@ set(BENCHMARK_SET
   kmeans)
 
 include(batch_creator_unix)
+include(benchmark_helper_functions)
 include(generate_data_gathering_unix)
 
 set(BATCH_COMMAND_LIST_SH "")

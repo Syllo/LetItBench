@@ -60,12 +60,9 @@ set(FLUIDSOLVER_DATA_EXTRACT_FN
 
 # Register bench targets
 
-set(FLUIDSOLVER_BENCH_TARGET_PREFIX "fluidsolver-bench")
+set(FLUIDSOLVER_BENCHMARKS_TARGET fluidsolver-benchmark)
 
-add_custom_target(${FLUIDSOLVER_BENCH_TARGET_PREFIX}-move
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${FLUIDSOLVER_RESULTS_DIR})
-add_custom_target(${FLUIDSOLVER_BENCH_TARGET_PREFIX}
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" ${FLUIDSOLVER_RESULTS_DIR})
+add_custom_target(${FLUIDSOLVER_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS FLUIDSOLVER_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
   list(APPEND FLUIDSOLVER_BENCH_TARGET_LIST ${bench_name})
@@ -75,16 +72,20 @@ foreach(BENCHMARK IN LISTS FLUIDSOLVER_BENCHMARKS)
   else()
     unset(bench_arguments)
   endif()
-  add_custom_target("${FLUIDSOLVER_BENCH_TARGET_PREFIX}-${bench_name}"
+  add_custom_target("${FLUIDSOLVER_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory ${FLUIDSOLVER_RESULTS_DIR}
     COMMAND fluidsolver ${bench_arguments} ${fluid_common_arguments} 1> "${FLUIDSOLVER_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from fluidSolver: ${bench_name}"
     VERBATIM)
-  add_dependencies(${FLUIDSOLVER_BENCH_TARGET_PREFIX} "${FLUIDSOLVER_BENCH_TARGET_PREFIX}-${bench_name}")
+  add_dependencies(${FLUIDSOLVER_BENCHMARKS_TARGET} "${FLUIDSOLVER_BENCHMARKS_TARGET}-${bench_name}")
 endforeach()
 
-add_dependencies(bench ${FLUIDSOLVER_BENCH_TARGET_PREFIX})
+add_custom_command(OUTPUT "${FLUIDSOLVER_RESULTS_DIR}"
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FLUIDSOLVER_BENCHMARKS_TARGET} -j 1
+  VERBATIM)
+
+generate_benchmark_targets_for(fluidsolver)
 
 # Fetching project
 

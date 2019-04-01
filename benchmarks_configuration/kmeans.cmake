@@ -68,12 +68,9 @@ set(KMEANS_BENCHMARKS
 
 # Register bench targets
 
-set(KMEANS_BENCH_TARGET_PREFIX "kmeans-bench")
+set(KMEANS_BENCHMARKS_TARGET kmeans-benchmark)
 
-add_custom_target(${KMEANS_BENCH_TARGET_PREFIX}-move
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" "${KMEANS_RESULTS_DIR}")
-add_custom_target(${KMEANS_BENCH_TARGET_PREFIX}
-  COMMAND "${PROJECT_SOURCE_DIR}/helper_scripts/$<PLATFORM_ID>/move_benchmark_results.sh" "${KMEANS_RESULTS_DIR}")
+add_custom_target(${KMEANS_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
   list(APPEND KMEANS_BENCH_TARGET_LIST ${bench_name})
@@ -83,16 +80,20 @@ foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
   else()
     unset(bench_arguments)
   endif()
-  add_custom_target("${KMEANS_BENCH_TARGET_PREFIX}-${bench_name}"
+  add_custom_target("${KMEANS_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory "${KMEANS_RESULTS_DIR}"
     COMMAND kmeans ${bench_arguments} ${KMeans_common_arguments} 1> "${KMEANS_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from KMeans: ${bench_name}"
     VERBATIM)
-  add_dependencies(${KMEANS_BENCH_TARGET_PREFIX} "${KMEANS_BENCH_TARGET_PREFIX}-${bench_name}")
+  add_dependencies(${KMEANS_BENCHMARKS_TARGET} "${KMEANS_BENCHMARKS_TARGET}-${bench_name}")
 endforeach()
 
-add_dependencies(bench kmeans-bench)
+add_custom_command(OUTPUT "${KMEANS_RESULTS_DIR}"
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_BENCHMARKS_TARGET} -j 1
+  VERBATIM)
+
+generate_benchmark_targets_for(kmeans)
 
 # Benchmark results gathering
 

@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(HEATSOLVER_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/heatSolver")
 
 # Number of execution of one benchmark
-#set(HEATSOLVER_BATCH_NUM 5)
+set(HEATSOLVER_BATCH_NUM 0)
 
 # HeatSolver Build Compilation Options
 
@@ -37,7 +37,7 @@ set(heat_common_arguments
   -y 1000)
 
 # Variable benchmark-name benchmark-options
-set(heat_jacobi jacobi -j -o "${HEATSOLVER_RESULTS_DIR}/jacobi-data.dat")
+set(heat_jacobi jacobi -j -o "${HEATSOLVER_RESULTS_DIR}/jacobi.dat")
 set(heat_jacobi_parallel jacobi-parallel -j -p)
 set(heat_jacobi_vectorized jacobi-vectorized -j -v)
 set(heat_jacobi_parallel_tiled jacobi-parallel-tiled -j -t)
@@ -55,16 +55,16 @@ set(heat_gauss_seidel_parallel_tiled gauss-seidel-parallel-tiled -g -t)
 
 set(HEATSOLVER_BENCHMARKS
   heat_jacobi
-  heat_jacobi_vectorized
-  heat_jacobi_parallel
-  heat_jacobi_parallel_tiled
-  heat_over_relaxation
-  heat_over_relaxation_vectorized
-  heat_over_relaxation_parallel
-  heat_over_relaxation_parallel_tiled
-  heat_gauss_seidel
-  heat_gauss_seidel_parallel
-  heat_gauss_seidel_parallel_tiled
+  #heat_jacobi_vectorized
+  #heat_jacobi_parallel
+  #heat_jacobi_parallel_tiled
+  #heat_over_relaxation
+  #heat_over_relaxation_vectorized
+  #heat_over_relaxation_parallel
+  #heat_over_relaxation_parallel_tiled
+  #heat_gauss_seidel
+  #heat_gauss_seidel_parallel
+  #heat_gauss_seidel_parallel_tiled
   )
 
 # Benchmark results gathering

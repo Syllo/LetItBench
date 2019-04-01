@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(FLUIDSOLVER_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/fluidSolver")
 
 # Number of execution of one benchmark
-#set(FLUIDSOLVER_BATCH_NUM 5)
+set(FLUIDSOLVER_BATCH_NUM 0)
 
 # FluidSolver Build Compilation Options
 
@@ -35,11 +35,11 @@ FetchContent_Declare(
 set(fluid_common_arguments "")
 
 # Variable benchmark-name benchmark-options
-set(base_2d  base-2d  -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/base" -o "${FLUIDSOLVER_RESULTS_DIR}/base2d-data.dat")
-set(flame_2d flame-2d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/flame" -o "${FLUIDSOLVER_RESULTS_DIR}/flame2d-data.dat")
-set(huge_2d  huge-2d  -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/huge" -o "${FLUIDSOLVER_RESULTS_DIR}/huge2d-data.dat")
-set(base_3d  base-3d  --3d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/3d/base" -o "${FLUIDSOLVER_RESULTS_DIR}/base3d-data.dat")
-set(huge_3d  huge-3d  --3d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/3d/huge") # -o "${FLUIDSOLVER_RESULTS_DIR}/huge3d-data.dat") # ~240Mo
+set(base_2d  base2d  -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/base" -o "${FLUIDSOLVER_RESULTS_DIR}/base2d-data.dat")
+set(flame_2d flame2d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/flame" -o "${FLUIDSOLVER_RESULTS_DIR}/flame2d-data.dat")
+set(huge_2d  huge2d  -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/2d/huge" -o "${FLUIDSOLVER_RESULTS_DIR}/huge2d-data.dat")
+set(base_3d  base3d  --3d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/3d/base" -o "${FLUIDSOLVER_RESULTS_DIR}/base3d-data.dat")
+set(huge_3d  huge3d  --3d -s "${BENCHMARKS_DIR}/fluidSolver/simulation_setup/3d/huge") # -o "${FLUIDSOLVER_RESULTS_DIR}/huge3d-data.dat") # ~240Mo
 
 # Benchmarks to run for fluidSolver
 
@@ -47,8 +47,8 @@ set(FLUIDSOLVER_BENCHMARKS
   base_2d
   flame_2d
   huge_2d
-  base_3d
-  huge_3d
+  #base_3d
+  #huge_3d
   )
 
 # Benchmark results gathering

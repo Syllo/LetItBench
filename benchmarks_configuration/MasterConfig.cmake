@@ -30,7 +30,9 @@ set(BENCHMARK_SET
   gameoflife
   kmeans
   fdtd
-  lbm)
+  lbm
+  heatSolverResilienceTest
+  fluidSolverResilienceTest)
 
 include(batch_creator_unix)
 include(benchmark_helper_functions)

@@ -135,7 +135,7 @@ addSpeedupTo dMap (dataCol,baseRow,rowsRegex) | S.size baseRowNameSet > 1  = Lef
 addSpeedupValues :: Text -> Double -> DataMap -> (BenchmarkName,DataName)-> DataMap
 addSpeedupValues newDataName refData dMap (bName, dName) | isNothing maybeRowData = dMap
                                                          | otherwise = let meanThisData = rawMean . toStatData . fromJust $ maybeRowData in
-                                                                         M.insert (bName, newDataName) (pure (meanThisData / refData)) dMap
+                                                                         M.insert (bName, newDataName) (pure (refData / meanThisData)) dMap
   where maybeRowData = M.lookup (bName, dName) dMap
 
 data StatData = StatData { statVariance :: Double

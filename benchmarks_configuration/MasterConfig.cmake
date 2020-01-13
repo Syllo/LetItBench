@@ -28,7 +28,9 @@ set(BENCHMARK_SET
   heatSolver
   fluidSolver
   gameoflife
-  kmeans)
+  kmeans
+  fdtd
+  lbm)
 
 include(batch_creator_unix)
 include(benchmark_helper_functions)

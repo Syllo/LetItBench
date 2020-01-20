@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(LBM_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/LBM")
 
 # Number of execution of one benchmark
-# set(LBM_BATCH_NUM 5)
+set(LBM_BATCH_NUM 0)
 
 # LBM Build Compilation Options
 

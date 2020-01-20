@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(KMEANS_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/KMeans")
 
 # Number of execution of one benchmark
-#set(KMEANS_BATCH_NUM 5)
+set(KMEANS_BATCH_NUM 0)
 
 # K-Meanns Build Compilation Options
 

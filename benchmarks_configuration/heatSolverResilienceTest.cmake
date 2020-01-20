@@ -85,7 +85,7 @@ set(HEATSOLVERRESILIENCETEST_DATA_EXTRACT_FN
 
 # Register bench targets
 
-set(HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET heatsolverresiliencetest-benchmark)
+set(HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET heatsolver_resilience-benchmark)
 
 add_custom_target(${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS HEATSOLVERRESILIENCETEST_BENCHMARKS)
@@ -113,7 +113,7 @@ add_custom_command(OUTPUT "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}"
   COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET} -j 1
   VERBATIM)
 
-generate_benchmark_targets_for(heatSolverResilienceTest)
+generate_benchmark_targets_for(heatSolver_Resilience)
 
 # Fetching project
 

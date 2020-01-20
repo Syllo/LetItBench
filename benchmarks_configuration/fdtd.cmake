@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(FDTD_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/FDTD")
 
 # Number of execution of one benchmark
-# set(FDTD_BATCH_NUM 5)
+set(FDTD_BATCH_NUM 0)
 
 # FDTD Build Compilation Options
 

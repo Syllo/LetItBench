@@ -32,7 +32,10 @@ set(BENCHMARK_SET
   fdtd
   lbm
   heatSolverResilienceTest
-  fluidSolverResilienceTest)
+  fluidSolverResilienceTest
+  kmeansResilienceTest
+  fdtdResilienceTest
+  lbmResilienceTest)
 
 include(batch_creator_unix)
 include(benchmark_helper_functions)

@@ -37,30 +37,32 @@ set(FDTD_RESILIENCE_common_arguments
   )
 
 # Variable benchmark-name benchmark-options
-set(1D_s0  1D-s0 -1 -s 0 -i 222222 -x 0.001                -o "${FDTD_RESILIENCE_RESULTS_DIR}/1D-0.dat")
-set(2D_s0  2D-s0 -2 -s 0 -i 2200   -x 0.00002  -y 0.00005  -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s0.dat")
-set(2D_s1  2D-s1 -2 -s 1 -i 1500   -x 0.00003  -y 0.00003  -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s1.dat")
-set(2D_s2  2D-s2 -2 -s 2 -i 2000   -x 0.00004  -y 0.00004  -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s2.dat")
-set(3D_s0  3D-s0 -3 -s 0 -i 200    -x 0.000003 -y 0.000003 -o "${FDTD_RESILIENCE_RESULTS_DIR}/3D-s0.dat")
-set(3D_s1  3D-s1 -3 -s 1 -i 200    -x 0.000003 -y 0.000003 -o "${FDTD_RESILIENCE_RESULTS_DIR}/3D-s1.dat")
-
-# Benchmarks to run for FDTD
-
-set(FDTD_RESILIENCE_BENCHMARKS
-  1D_s0
-  2D_s0
-  2D_s1
-  2D_s2
-  3D_s0
-  3D_s1
-  )
+foreach(bench_rand IN ITEMS "01" "02" "03" "04" "05" "06" "07" "08" "09")
+  set(2D_s0_rand${bench_rand}  2D-s0-rand${bench_rand} -2 -s 0 -i 2200   -x 0.00002  -y 0.00005 -R 0.${bench_rand} -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s0-rand${bench_rand}.dat")
+  set(2D_s0_rand${bench_rand}_interpol  2D-s0-rand${bench_rand}-interpol -2 -s 0 -i 2200   -x 0.00002  -y 0.00005 -R 0.${bench_rand} -I -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s0-rand${bench_rand}-interpol.dat")
+  list(APPEND FDTD_RESILIENCE_S0_BENCHMARKS 2D_s0_rand${bench_rand} 2D_s0_rand${bench_rand}_interpol)
+  set(2D_s1_rand${bench_rand}  2D-s1-rand${bench_rand} -2 -s 1 -i 1500   -x 0.00003  -y 0.00003 -R 0.${bench_rand} -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s1-rand${bench_rand}.dat")
+  set(2D_s1_rand${bench_rand}_interpol  2D-s1-rand${bench_rand}-interpol -2 -s 1 -i 1500   -x 0.00003  -y 0.00003 -R 0.${bench_rand} -I -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s1-rand${bench_rand}-interpol.dat")
+  list(APPEND FDTD_RESILIENCE_S1_BENCHMARKS 2D_s1_rand${bench_rand} 2D_s1_rand${bench_rand}_interpol)
+  set(2D_s2_rand${bench_rand}  2D-s2-rand${bench_rand} -2 -s 2 -i 2000   -x 0.00004  -y 0.00004 -R 0.${bench_rand} -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s2-rand${bench_rand}.dat")
+  set(2D_s2_rand${bench_rand}_interpol  2D-s2-rand${bench_rand}-interpol -2 -s 2 -i 2000   -x 0.00004  -y 0.00004 -R 0.${bench_rand} -I -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s2-rand${bench_rand}-interpol.dat")
+  list(APPEND FDTD_RESILIENCE_S2_BENCHMARKS 2D_s2_rand${bench_rand} 2D_s2_rand${bench_rand}_interpol)
+endforeach()
+foreach(bench_rand IN ITEMS "10" "20" "30" "40" "50" "60" "70" "80" "90")
+  set(2D_s0_sort${bench_rand}  2D-s0-sort${bench_rand} -2 -s 0 -i 2200   -x 0.00002  -y 0.00005 -R 0.${bench_rand} -S -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s0-sort${bench_rand}.dat")
+  list(APPEND FDTD_RESILIENCE_S0_BENCHMARKS 2D_s0_sort${bench_rand})
+  set(2D_s1_sort${bench_rand}  2D-s1-sort${bench_rand} -2 -s 1 -i 1500   -x 0.00003  -y 0.00003 -R 0.${bench_rand} -S -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s1-sort${bench_rand}.dat")
+  list(APPEND FDTD_RESILIENCE_S1_BENCHMARKS 2D_s1_sort${bench_rand})
+  set(2D_s2_sort${bench_rand}  2D-s2-sort${bench_rand} -2 -s 2 -i 2000   -x 0.00004  -y 0.00004 -R 0.${bench_rand} -S -o "${FDTD_RESILIENCE_RESULTS_DIR}/2D-s2-sort${bench_rand}.dat")
+  list(APPEND FDTD_RESILIENCE_S2_BENCHMARKS 2D_s2_sort${bench_rand})
+endforeach()
 
 # Register bench targets
 
-set(FDTD_RESILIENCE_BENCHMARKS_TARGET fdtd_resilience-benchmark)
+set(FDTD_RESILIENCE_BENCHMARKS_TARGET fdtd-resilience-benchmark)
 
 add_custom_target(${FDTD_RESILIENCE_BENCHMARKS_TARGET})
-foreach(BENCHMARK IN LISTS FDTD_RESILIENCE_BENCHMARKS)
+foreach(BENCHMARK IN LISTS FDTD_RESILIENCE_S0_BENCHMARKS)
   list(GET ${BENCHMARK} 0 bench_name)
   list(APPEND FDTD_RESILIENCE_BENCH_TARGET_LIST ${bench_name})
   list(LENGTH ${BENCHMARK} bench_num_args)
@@ -71,18 +73,60 @@ foreach(BENCHMARK IN LISTS FDTD_RESILIENCE_BENCHMARKS)
   endif()
   add_custom_target("${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory "${FDTD_RESILIENCE_RESULTS_DIR}"
-    COMMAND fdtd ${bench_arguments} ${FDTD_RESILIENCE_common_arguments} 1> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND fdtdResilienceTest ${bench_arguments} ${FDTD_RESILIENCE_common_arguments} 1> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/FDTDResilienceTest/script/error.R "${FDTD_RESULTS_DIR}/2D-s0.dat" "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
-    COMMENT "Running benchmark from FDTD: ${bench_name}"
+    COMMENT "Running benchmark from FDTD Resilience Test: ${bench_name}"
     VERBATIM)
   add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET} "${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}")
+  add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name} fdtd-run-benchmarks)
+endforeach()
+
+foreach(BENCHMARK IN LISTS FDTD_RESILIENCE_S1_BENCHMARKS)
+  list(GET ${BENCHMARK} 0 bench_name)
+  list(APPEND FDTD_RESILIENCE_BENCH_TARGET_LIST ${bench_name})
+  list(LENGTH ${BENCHMARK} bench_num_args)
+  if(${bench_num_args} GREATER 1)
+    list(SUBLIST ${BENCHMARK} 1 -1 bench_arguments)
+  else()
+    unset(bench_arguments)
+  endif()
+  add_custom_target("${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
+    ${CMAKE_COMMAND} -E make_directory "${FDTD_RESILIENCE_RESULTS_DIR}"
+    COMMAND fdtdResilienceTest ${bench_arguments} ${FDTD_RESILIENCE_common_arguments} 1> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/FDTDResilienceTest/script/error.R "${FDTD_RESULTS_DIR}/2D-s1.dat" "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND_EXPAND_LISTS
+    COMMENT "Running benchmark from FDTD Resilience Test: ${bench_name}"
+    VERBATIM)
+  add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET} "${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}")
+  add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name} fdtd-run-benchmarks)
+endforeach()
+
+foreach(BENCHMARK IN LISTS FDTD_RESILIENCE_S2_BENCHMARKS)
+  list(GET ${BENCHMARK} 0 bench_name)
+  list(APPEND FDTD_RESILIENCE_BENCH_TARGET_LIST ${bench_name})
+  list(LENGTH ${BENCHMARK} bench_num_args)
+  if(${bench_num_args} GREATER 1)
+    list(SUBLIST ${BENCHMARK} 1 -1 bench_arguments)
+  else()
+    unset(bench_arguments)
+  endif()
+  add_custom_target("${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
+    ${CMAKE_COMMAND} -E make_directory "${FDTD_RESILIENCE_RESULTS_DIR}"
+    COMMAND fdtdResilienceTest ${bench_arguments} ${FDTD_RESILIENCE_common_arguments} 1> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/FDTDResilienceTest/script/error.R "${FDTD_RESULTS_DIR}/2D-s2.dat" "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${FDTD_RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND_EXPAND_LISTS
+    COMMENT "Running benchmark from FDTD Resilience Test: ${bench_name}"
+    VERBATIM)
+  add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET} "${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}")
+  add_dependencies(${FDTD_RESILIENCE_BENCHMARKS_TARGET}-${bench_name} fdtd-run-benchmarks)
 endforeach()
 
 add_custom_command(OUTPUT "${FDTD_RESILIENCE_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FDTD_RESILIENCE_BENCHMARKS_TARGET} -j 1
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FDTD_RESILIENCE_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
-generate_benchmark_targets_for(fdtd_resilience)
+generate_benchmark_targets_for(fdtdResilienceTest)
 
 # Benchmark results gathering
 

@@ -79,8 +79,7 @@ foreach(bench_id IN ITEMS base flame huge)
     add_custom_target("${FLUIDSOLVERRESILIENCETEST_BENCHMARKS_TARGET}-${bench_name}"
       ${CMAKE_COMMAND} -E make_directory ${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}
       COMMAND fluidSolverResilienceTest ${bench_arguments} ${fluid_common_arguments} 1> "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
-      COMMAND Rscript ${BENCHMARKS_DIR}/fluidSolverResilienceTest/script/error2d.R "${FLUIDSOLVER_RESULTS_DIR}/${bench_id}2d-data.dat"
-      "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}-data.dat" >> "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+      COMMAND Rscript ${BENCHMARKS_DIR}/fluidSolverResilienceTest/script/error2d.R "${FLUIDSOLVER_RESULTS_DIR}/${bench_id}2d-data.dat" "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}-data.dat" >> "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
       COMMAND_EXPAND_LISTS
       COMMENT "Running benchmark from fluidSolverResilienceTest: ${bench_name}"
       VERBATIM)

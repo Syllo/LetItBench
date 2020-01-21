@@ -37,29 +37,13 @@ set(KMeans_common_arguments
   )
 
 # Variable benchmark-name benchmark-options
-set(vegetables_small  vegetables-small  -i "${BENCHMARKS_DIR}/KMeans/images/vegetables_640x471.png"   -o "${KMEANS_RESULTS_DIR}/vegetables_small.png")
-set(vegetables_medium vegetables-medium -i "${BENCHMARKS_DIR}/KMeans/images/vegetables_1280x943.png"  -o "${KMEANS_RESULTS_DIR}/vegetables_medium.png")
 set(vegetables_large  vegetables-large  -i "${BENCHMARKS_DIR}/KMeans/images/vegetables_4168x3072.png" -o "${KMEANS_RESULTS_DIR}/vegetables_large.png")
-set(wolf_small        wolf-small        -i "${BENCHMARKS_DIR}/KMeans/images/wolf_640x425.png"         -o "${KMEANS_RESULTS_DIR}/wolf_small.png")
-set(wolf_medium       wolf-medium       -i "${BENCHMARKS_DIR}/KMeans/images/wolf_1280x850.png"        -o "${KMEANS_RESULTS_DIR}/wolf_medium.png")
 set(wolf_large        wolf-large        -i "${BENCHMARKS_DIR}/KMeans/images/wolf_4288x2848.png"       -o "${KMEANS_RESULTS_DIR}/wolf_large.png")
-set(nebula_small      nebula-small      -i "${BENCHMARKS_DIR}/KMeans/images/nebula_640x594.png"       -o "${KMEANS_RESULTS_DIR}/nebula_small.png")
-set(nebula_medium     nebula-medium     -i "${BENCHMARKS_DIR}/KMeans/images/nebula_1280x1188.png"     -o "${KMEANS_RESULTS_DIR}/nebula_medium.png")
 set(nebula_large      nebula-large      -i "${BENCHMARKS_DIR}/KMeans/images/nebula_3000x2785.png"     -o "${KMEANS_RESULTS_DIR}/nebula_large.png")
-set(bird_small        bird-small        -i "${BENCHMARKS_DIR}/KMeans/images/bird_640x400.png"         -o "${KMEANS_RESULTS_DIR}/bird_small.png")
-set(bird_medium       bird-medium       -i "${BENCHMARKS_DIR}/KMeans/images/bird_1280x800.png"        -o "${KMEANS_RESULTS_DIR}/bird_medium.png")
 set(bird_large        bird-large        -i "${BENCHMARKS_DIR}/KMeans/images/bird_2560x1600.png"       -o "${KMEANS_RESULTS_DIR}/bird_large.png")
 # Benchmarks to run for KMeans
 
 set(KMEANS_BENCHMARKS
-  vegetables_small
-  wolf_small
-  nebula_small
-  bird_small
-  vegetables_medium
-  wolf_medium
-  nebula_medium
-  bird_medium
   vegetables_large
   wolf_large
   nebula_large
@@ -90,7 +74,7 @@ foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
 endforeach()
 
 add_custom_command(OUTPUT "${KMEANS_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_BENCHMARKS_TARGET} -j 1
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
 generate_benchmark_targets_for(kmeans)

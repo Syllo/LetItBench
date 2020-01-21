@@ -1,7 +1,7 @@
 include(FetchContent)
 include(CheckIPOSupported)
 
-set(HEATSOLVERRESILIENCETEST_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/heatSolverResilienceTest")
+set(HEATSOLVER-RESILIENCE_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/heatSolverResilienceTest")
 
 # Number of execution of one benchmark
 #set(HEATSOLVERRESILIENCETEST_BATCH_NUM 5)
@@ -38,19 +38,19 @@ set(heat_common_arguments
   -i 30605)
 
 # Variable benchmark-name benchmark-options
-set(heat_jacobi_rand_002 rand-002 -j -R 0.02 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-002.dat")
-set(heat_jacobi_rand_004 rand-004 -j -R 0.04 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-004.dat")
-set(heat_jacobi_rand_006 rand-006 -j -R 0.06 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-006.dat")
-set(heat_jacobi_rand_008 rand-008 -j -R 0.08 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-008.dat")
-set(heat_jacobi_rand_010 rand-010 -j -R 0.10 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-010.dat")
-set(heat_jacobi_rand_012 rand-012 -j -R 0.12 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-012.dat")
-set(heat_jacobi_rand_014 rand-014 -j -R 0.14 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-014.dat")
-set(heat_jacobi_rand_016 rand-016 -j -R 0.16 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-016.dat")
-set(heat_jacobi_rand_018 rand-018 -j -R 0.18 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-018.dat")
-set(heat_jacobi_rand_020 rand-020 -j -R 0.20 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/rand-020.dat")
-set(heat_jacobi_perforation_2 perforation-2 -j -X 2 -Y 2 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/perforation-2.dat")
-set(heat_jacobi_perforation_3 perforation-3 -j -X 3 -Y 3 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/perforation-3.dat")
-set(heat_jacobi_perforation_4 perforation-4 -j -X 4 -Y 4 -o "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/perforation-4.dat")
+set(heat_jacobi_rand_002 rand-002 -j -R 0.02 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-002.dat")
+set(heat_jacobi_rand_004 rand-004 -j -R 0.04 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-004.dat")
+set(heat_jacobi_rand_006 rand-006 -j -R 0.06 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-006.dat")
+set(heat_jacobi_rand_008 rand-008 -j -R 0.08 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-008.dat")
+set(heat_jacobi_rand_010 rand-010 -j -R 0.10 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-010.dat")
+set(heat_jacobi_rand_012 rand-012 -j -R 0.12 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-012.dat")
+set(heat_jacobi_rand_014 rand-014 -j -R 0.14 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-014.dat")
+set(heat_jacobi_rand_016 rand-016 -j -R 0.16 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-016.dat")
+set(heat_jacobi_rand_018 rand-018 -j -R 0.18 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-018.dat")
+set(heat_jacobi_rand_020 rand-020 -j -R 0.20 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/rand-020.dat")
+set(heat_jacobi_perforation_2 perforation-2 -j -X 2 -Y 2 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/perforation-2.dat")
+set(heat_jacobi_perforation_3 perforation-3 -j -X 3 -Y 3 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/perforation-3.dat")
+set(heat_jacobi_perforation_4 perforation-4 -j -X 4 -Y 4 -o "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/perforation-4.dat")
 
 # Benchmarks to run for heatSolver
 
@@ -85,7 +85,7 @@ set(HEATSOLVERRESILIENCETEST_DATA_EXTRACT_FN
 
 # Register bench targets
 
-set(HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET heatsolver_resilience-benchmark)
+set(HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET heatsolver-resilience-benchmark)
 
 add_custom_target(${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET})
 foreach(BENCHMARK IN LISTS HEATSOLVERRESILIENCETEST_BENCHMARKS)
@@ -98,22 +98,22 @@ foreach(BENCHMARK IN LISTS HEATSOLVERRESILIENCETEST_BENCHMARKS)
     unset(bench_arguments)
   endif()
   add_custom_target("${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET}-${bench_name}"
-    ${CMAKE_COMMAND} -E make_directory ${HEATSOLVERRESILIENCETEST_RESULTS_DIR}
-    COMMAND heatSolverResilienceTest ${bench_arguments} ${heat_common_arguments} 1> "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND Rscript ${BENCHMARKS_DIR}/heatSolverResilienceTest/script/error.R "${HEATSOLVER_RESULTS_DIR}/jacobi.dat" "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}.dat" >> "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    ${CMAKE_COMMAND} -E make_directory ${HEATSOLVER-RESILIENCE_RESULTS_DIR}
+    COMMAND heatSolverResilienceTest ${bench_arguments} ${heat_common_arguments} 1> "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/heatSolverResilienceTest/script/error.R "${HEATSOLVER_RESULTS_DIR}/jacobi.dat" "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${HEATSOLVER-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
-    COMMENT "Running benchmark from heatSolverResilienceTest: ${bench_name}"
+    COMMENT "Running benchmark from heatSolver Resilience Test: ${bench_name}"
     VERBATIM)
   add_dependencies(${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET} "${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET}-${bench_name}")
   add_dependencies("${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET}-${bench_name}" heatsolver-run-benchmarks)
 endforeach()
 
 
-add_custom_command(OUTPUT "${HEATSOLVERRESILIENCETEST_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET} -j 1
+add_custom_command(OUTPUT "${HEATSOLVER-RESILIENCE_RESULTS_DIR}"
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${HEATSOLVERRESILIENCETEST_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
-generate_benchmark_targets_for(heatSolver_Resilience)
+generate_benchmark_targets_for(heatSolver-Resilience)
 
 # Fetching project
 

@@ -37,9 +37,9 @@ set(LBM_common_arguments
   )
 
 # Variable benchmark-name benchmark-options
-set(karman_vortex_small       karman-vortex-small       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -o "${LBM_RESULTS_DIR}/karman-votex-small.dat")
-set(karman_vortex_elongated   karman-vortex-elongated   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -o "${LBM_RESULTS_DIR}/karman-votex-elongated.dat")
-set(karmak_vortex_large_width karman-vortex-large-width -t 3700 -x 200  -y 175 -r 0.4 -s 1. -o "${LBM_RESULTS_DIR}/karman-votex-large-width.dat")
+set(karman_vortex_small       karman-vortex-small       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -o "${LBM_RESULTS_DIR}/karman-vortex-small.dat")
+set(karman_vortex_elongated   karman-vortex-elongated   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -o "${LBM_RESULTS_DIR}/karman-vortex-elongated.dat")
+set(karmak_vortex_large_width karman-vortex-large-width -t 3700 -x 200  -y 175 -r 0.4 -s 1. -o "${LBM_RESULTS_DIR}/karman-vortex-large-width.dat")
 
 # Benchmarks to run for LBM
 

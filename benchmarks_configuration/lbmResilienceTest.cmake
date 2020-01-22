@@ -109,7 +109,7 @@ foreach(BENCHMARK IN LISTS LBM_RESILIENCE_TEST_LARGE_BENCHMARKS)
   add_custom_target("${LBM_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory "${LBM-RESILIENCE_RESULTS_DIR}"
     COMMAND lbmResilienceTest ${bench_arguments} ${LBM_RESILIENCE_common_arguments} 1> "${LBM-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND Rscript ${BENCHMARKS_DIR}/LBMResilienceTest/script/error.R "${LBM_RESULTS_DIR}/karmak-vortex-large-width.dat" "${LBM-RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${LBM-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/LBMResilienceTest/script/error.R "${LBM_RESULTS_DIR}/karman-vortex-large-width.dat" "${LBM-RESILIENCE_RESULTS_DIR}/${bench_name}.dat" >> "${LBM-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from LBM Resilience Test: ${bench_name}"
     VERBATIM)

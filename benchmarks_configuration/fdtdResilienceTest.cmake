@@ -130,10 +130,16 @@ generate_benchmark_targets_for(fdtdResilienceTest)
 
 # Benchmark results gathering
 
-set(FDTD_RESILIENCE_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/FDTDGathered.dat")
-set(FDTD_RESILIENCE_DATA_COLUMN_NAME "Time")
-set(FDTD_RESILIENCE_DATA_EXTRACT_FN
-  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
+set(FDTDRESILIENCETEST_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/FDTDResilienceTestGathered.dat")
+set(FDTDRESILIENCETEST_DATA_COLUMN_NAME "Time" "Mean_Error" "Max_Error" "Quartile_1" "Median" "Quartile_3")
+set(FDTDRESILIENCETEST_DATA_EXTRACT_FN
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'"
+  "grep 'Mean ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep 'Max. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep '1st Qu. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 3"
+  "grep 'Median ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep '3rd Qu. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 3"
+  )
 
 # Fetching project
 

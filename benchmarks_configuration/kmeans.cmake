@@ -85,6 +85,16 @@ set(KMEANS_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/KMeansGathered.dat")
 set(KMEANS_DATA_COLUMN_NAME "Time")
 set(KMEANS_DATA_EXTRACT_FN
   "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
+set(KMEANSRESILIENCETEST_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/lbmResilienceTestGathered.dat")
+set(KMEANSRESILIENCETEST_DATA_COLUMN_NAME "Time" "Mean_Error" "Max_Error" "Quartile_1" "Median" "Quartile_3")
+set(KMEANSRESILIENCETEST_DATA_EXTRACT_FN
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'"
+  "grep 'Mean ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep 'Max. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep '1st Qu. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 3"
+  "grep 'Median ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2"
+  "grep '3rd Qu. ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 3"
+  )
 
 # Fetching project
 

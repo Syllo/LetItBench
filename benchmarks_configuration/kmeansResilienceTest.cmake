@@ -145,10 +145,13 @@ generate_benchmark_targets_for(kmeans-resilience)
 
 # Benchmark results gathering
 
-set(KMEANS_RESILIENCE_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/KMeansGathered.dat")
-set(KMEANS_RESILIENCE_DATA_COLUMN_NAME "Time")
-set(KMEANS_RESILIENCE_DATA_EXTRACT_FN
-  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
+set(KMEANSRESILIENCETEST_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/lbmResilienceTestGathered.dat")
+set(KMEANSRESILIENCETEST_DATA_COLUMN_NAME "Time" "Kernel_Iterations" "Error")
+set(KMEANSRESILIENCETEST_DATA_EXTRACT_FN
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'"
+  "grep 'Converged ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 3"
+  "grep 'Error ' \"$bench_result_location/$bench_name\" | tr -s ' ' | cut -d ' ' -f 2 | tr -d \"%\""
+  )
 
 # Fetching project
 

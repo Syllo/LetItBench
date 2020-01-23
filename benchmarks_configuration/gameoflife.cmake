@@ -4,7 +4,7 @@ include(CheckIPOSupported)
 set(GAMEOFLIFE_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/gameOfLife")
 
 # Number of execution of one benchmark
-#set(GAMEOFLIFE_BATCH_NUM 5)
+# set(GAMEOFLIFE_BATCH_NUM 5)
 
 # Game of Life Build Compilation Options
 
@@ -28,7 +28,7 @@ endif()
 FetchContent_Declare(
   gameOfLife
   GIT_REPOSITORY https://github.com/Syllo/gol.git
-  GIT_TAG origin/master
+  GIT_TAG origin/resilience_test
   SOURCE_DIR "${BENCHMARKS_DIR}/gameOfLife"
   )
 
@@ -42,6 +42,12 @@ set(pattern_turing_machine pattern-turing-machine --generation 1000 "${BENCHMARK
   -o "${GAMEOFLIFE_RESULTS_DIR}/turingmachine-gen1000.rle")
 set(pattern_clock pattern-clock --generation 30 "${BENCHMARKS_DIR}/gameOfLife/patterns/clock.rle" -o "${GAMEOFLIFE_RESULTS_DIR}/clock-gen30.rle")
 
+set(pattern_101_sparse pattern-101-sparse --generation 150000 "${BENCHMARKS_DIR}/gameOfLife/patterns/101.rle" --compare-rle "${BENCHMARKS_DIR}/gameOfLife/patterns/101.rle" -i)
+set(pattern_bunnies_sparse pattern-bunny-sparse --generation 2500 "${BENCHMARKS_DIR}/gameOfLife/patterns/bunnies.rle" -o "${GAMEOFLIFE_RESULTS_DIR}/bunnies-gen2500.rle" -i)
+set(pattern_turing_machine_sparse pattern-turing-machine-sparse --generation 1000 "${BENCHMARKS_DIR}/gameOfLife/patterns/turingmachine.rle"
+  -o "${GAMEOFLIFE_RESULTS_DIR}/turingmachine-gen1000.rle" -i)
+set(pattern_clock_sparse pattern-clock-sparse --generation 30 "${BENCHMARKS_DIR}/gameOfLife/patterns/clock.rle" -o "${GAMEOFLIFE_RESULTS_DIR}/clock-gen30.rle" -i)
+
 # Benchmarks to run for gameOfLife
 
 set(GAMEOFLIFE_BENCHMARKS
@@ -49,14 +55,19 @@ set(GAMEOFLIFE_BENCHMARKS
   pattern_bunnies
   pattern_turing_machine
   pattern_clock
+  pattern_101_sparse
+  pattern_bunnies_sparse
+  pattern_turing_machine_sparse
+  pattern_clock_sparse
   )
 
 # Benchmark results gathering
 
 set(GAMEOFLIFE_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/gameOfLifeGathered.dat")
-set(GAMEOFLIFE_DATA_COLUMN_NAME "Time")
+set(GAMEOFLIFE_DATA_COLUMN_NAME "Time" "Percent_Allocated")
 set(GAMEOFLIFE_DATA_EXTRACT_FN
-  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'")
+  "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'"
+  "grep 'Percent allocated' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d '%'")
 
 # Register bench targets
 

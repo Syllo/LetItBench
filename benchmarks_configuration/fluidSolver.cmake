@@ -82,7 +82,7 @@ foreach(BENCHMARK IN LISTS FLUIDSOLVER_BENCHMARKS)
 endforeach()
 
 add_custom_command(OUTPUT "${FLUIDSOLVER_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FLUIDSOLVER_BENCHMARKS_TARGET} -j 1
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FLUIDSOLVER_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
 generate_benchmark_targets_for(fluidsolver)

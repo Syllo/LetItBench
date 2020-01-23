@@ -89,7 +89,7 @@ foreach(bench_id IN ITEMS base flame huge)
 endforeach()
 
 add_custom_command(OUTPUT "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FLUIDSOLVERRESILIENCETEST_BENCHMARKS_TARGET} -j 1
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${FLUIDSOLVERRESILIENCETEST_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
 generate_benchmark_targets_for(fluidsolverresiliencetest)

@@ -1,7 +1,7 @@
 include(FetchContent)
 include(CheckIPOSupported)
 
-set(KMEANS-RESILIENCE_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/KMeansResilienceTest")
+set(KMEANSRESILIENCETEST_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/KMeansResilienceTest")
 
 # Number of execution of one benchmark
 #set(KMEANSRESILIENCETEST_BATCH_NUM 5)
@@ -40,13 +40,13 @@ set(KMeans_Resilience_common_arguments
 
 foreach(settle_at IN ITEMS "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
   foreach(invalidate_num IN ITEMS "0" "5" "10" "15" "20" "25" "30" "40" "50")
-    set(vegetables_large_settle${settle_at}_invalidate${invalidate_num}  vegetables-large-settle${settle_at}-invalidate${invalidate_num} -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/vegetables_4168x3072.png" -o "${KMEANS-RESILIENCE_RESULTS_DIR}/vegetables-large-settle${settle_at}-invalidate${invalidate_num}.png")
+    set(vegetables_large_settle${settle_at}_invalidate${invalidate_num}  vegetables-large-settle${settle_at}-invalidate${invalidate_num} -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/vegetables_4168x3072.png" -o "${KMEANSRESILIENCETEST_RESULTS_DIR}/vegetables-large-settle${settle_at}-invalidate${invalidate_num}.png")
     list(APPEND KMEAN_RESILIENCE_TEST_VEGETABLE_BENCHMARKS vegetables_large_settle${settle_at}_invalidate${invalidate_num})
-    set(wolf_large_settle${settle_at}_invalidate${invalidate_num}        wolf-large-settle${settle_at}-invalidate${invalidate_num}       -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/wolf_4288x2848.png"       -o "${KMEANS-RESILIENCE_RESULTS_DIR}/wolf-large-settle${settle_at}-invalidate${invalidate_num}.png")
+    set(wolf_large_settle${settle_at}_invalidate${invalidate_num}        wolf-large-settle${settle_at}-invalidate${invalidate_num}       -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/wolf_4288x2848.png"       -o "${KMEANSRESILIENCETEST_RESULTS_DIR}/wolf-large-settle${settle_at}-invalidate${invalidate_num}.png")
     list(APPEND KMEAN_RESILIENCE_TEST_WOLF_BENCHMARKS wolf_large_settle${settle_at}_invalidate${invalidate_num})
-    set(nebula_large_settle${settle_at}_invalidate${invalidate_num}      nebula-large-settle${settle_at}-invalidate${invalidate_num}     -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/nebula_3000x2785.png"     -o "${KMEANS-RESILIENCE_RESULTS_DIR}/nebula-large-settle${settle_at}-invalidate${invalidate_num}.png")
+    set(nebula_large_settle${settle_at}_invalidate${invalidate_num}      nebula-large-settle${settle_at}-invalidate${invalidate_num}     -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/nebula_3000x2785.png"     -o "${KMEANSRESILIENCETEST_RESULTS_DIR}/nebula-large-settle${settle_at}-invalidate${invalidate_num}.png")
     list(APPEND KMEAN_RESILIENCE_TEST_NEBULA_BENCHMARKS nebula_large_settle${settle_at}_invalidate${invalidate_num})
-    set(bird_large_settle${settle_at}_invalidate${invalidate_num}        bird-large-settle${settle_at}-invalidate${invalidate_num}       -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/bird_2560x1600.png"       -o "${KMEANS-RESILIENCE_RESULTS_DIR}/bird-large-settle${settle_at}-invalidate${invalidate_num}.png")
+    set(bird_large_settle${settle_at}_invalidate${invalidate_num}        bird-large-settle${settle_at}-invalidate${invalidate_num}       -S ${settle_at} -I ${invalidate_num} -i "${BENCHMARKS_DIR}/KMeans/images/bird_2560x1600.png"       -o "${KMEANSRESILIENCETEST_RESULTS_DIR}/bird-large-settle${settle_at}-invalidate${invalidate_num}.png")
     list(APPEND KMEAN_RESILIENCE_TEST_BIRD_BENCHMARKS bird_large_settle${settle_at}_invalidate${invalidate_num})
   endforeach()
 endforeach()
@@ -67,9 +67,9 @@ foreach(BENCHMARK IN LISTS KMEAN_RESILIENCE_TEST_VEGETABLE_BENCHMARKS)
     unset(bench_arguments)
   endif()
   add_custom_target("${KMEANS_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
-    ${CMAKE_COMMAND} -E make_directory "${KMEANS-RESILIENCE_RESULTS_DIR}"
-    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/vegetables_large.png" -C "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}.png" >> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    ${CMAKE_COMMAND} -E make_directory "${KMEANSRESILIENCETEST_RESULTS_DIR}"
+    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/vegetables_large.png" -C "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}.png" >> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from KMeans Resilience Test: ${bench_name}"
     VERBATIM)
@@ -87,9 +87,9 @@ foreach(BENCHMARK IN LISTS KMEAN_RESILIENCE_TEST_WOLF_BENCHMARKS)
     unset(bench_arguments)
   endif()
   add_custom_target("${KMEANS_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
-    ${CMAKE_COMMAND} -E make_directory "${KMEANS-RESILIENCE_RESULTS_DIR}"
-    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/wolf_large.png" -C "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}.png" >> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    ${CMAKE_COMMAND} -E make_directory "${KMEANSRESILIENCETEST_RESULTS_DIR}"
+    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/wolf_large.png" -C "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}.png" >> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from KMeans Resilience Test: ${bench_name}"
     VERBATIM)
@@ -107,9 +107,9 @@ foreach(BENCHMARK IN LISTS KMEAN_RESILIENCE_TEST_NEBULA_BENCHMARKS)
     unset(bench_arguments)
   endif()
   add_custom_target("${KMEANS_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
-    ${CMAKE_COMMAND} -E make_directory "${KMEANS-RESILIENCE_RESULTS_DIR}"
-    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/nebula_large.png" -C "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}.png" >> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    ${CMAKE_COMMAND} -E make_directory "${KMEANSRESILIENCETEST_RESULTS_DIR}"
+    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/nebula_large.png" -C "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}.png" >> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from KMeans Resilience Test: ${bench_name}"
     VERBATIM)
@@ -127,9 +127,9 @@ foreach(BENCHMARK IN LISTS KMEAN_RESILIENCE_TEST_BIRD_BENCHMARKS)
     unset(bench_arguments)
   endif()
   add_custom_target("${KMEANS_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
-    ${CMAKE_COMMAND} -E make_directory "${KMEANS-RESILIENCE_RESULTS_DIR}"
-    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/bird_large.png" -C "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}.png" >> "${KMEANS-RESILIENCE_RESULTS_DIR}/${bench_name}" 2>&1
+    ${CMAKE_COMMAND} -E make_directory "${KMEANSRESILIENCETEST_RESULTS_DIR}"
+    COMMAND kmeansResilienceTest ${bench_arguments} ${KMeans_Resilience_common_arguments} 1> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND kmeansResilienceTest -i "${KMEANS_RESULTS_DIR}/bird_large.png" -C "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}.png" >> "${KMEANSRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from KMeans Resilience Test: ${bench_name}"
     VERBATIM)
@@ -137,7 +137,7 @@ foreach(BENCHMARK IN LISTS KMEAN_RESILIENCE_TEST_BIRD_BENCHMARKS)
   add_dependencies("${KMEANS_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}" kmeans-run-benchmarks)
 endforeach()
 
-add_custom_command(OUTPUT "${KMEANS-RESILIENCE_RESULTS_DIR}"
+add_custom_command(OUTPUT "${KMEANSRESILIENCETEST_RESULTS_DIR}"
   COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_RESILIENCE_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
@@ -145,7 +145,7 @@ generate_benchmark_targets_for(kmeans-resilience)
 
 # Benchmark results gathering
 
-set(KMEANSRESILIENCETEST_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/lbmResilienceTestGathered.dat")
+set(KMEANSRESILIENCETEST_GATHER_LOCATION "${BENCHMARKS_RESULTS_DIR}/KMeansResilienceTestGathered.dat")
 set(KMEANSRESILIENCETEST_DATA_COLUMN_NAME "Time" "Kernel_Iterations" "Error")
 set(KMEANSRESILIENCETEST_DATA_EXTRACT_FN
   "grep 'Kernel time' \"$bench_result_location/$bench_name\" | cut -d ' ' -f 3 | tr -d 's'"

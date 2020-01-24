@@ -141,7 +141,7 @@ add_custom_command(OUTPUT "${KMEANSRESILIENCETEST_RESULTS_DIR}"
   COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_RESILIENCE_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
-generate_benchmark_targets_for(kmeans-resilience)
+generate_benchmark_targets_for(kmeansResilienceTest)
 
 # Benchmark results gathering
 

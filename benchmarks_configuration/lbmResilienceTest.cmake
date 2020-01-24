@@ -1,7 +1,7 @@
 include(FetchContent)
 include(CheckIPOSupported)
 
-set(LBMRESILIENCETEST_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/LBMResilienceTest")
+set(LBMRESILIENCETEST_RESULTS_DIR "${BENCHMARKS_RESULTS_DIR}/lbmResilienceTest")
 
 # Number of execution of one benchmark
 # set(LBMRESILIENCETEST_BATCH_NUM 5)
@@ -121,7 +121,7 @@ add_custom_command(OUTPUT "${LBMRESILIENCETEST_RESULTS_DIR}"
   COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${LBM_RESILIENCE_BENCHMARKS_TARGET} -j 8
   VERBATIM)
 
-generate_benchmark_targets_for(lbm-Resilience)
+generate_benchmark_targets_for(lbmResilienceTest)
 
 # Benchmark results gathering
 

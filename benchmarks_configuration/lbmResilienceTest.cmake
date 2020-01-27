@@ -38,17 +38,26 @@ set(LBM_RESILIENCE_common_arguments
 
 # Variable benchmark-name benchmark-options
 foreach(bench_rand IN ITEMS "01" "02" "03" "04" "05" "06" "07" "08" "09")
-  set(karman_vortex_small_rand${bench_rand}       karman-vortex-small-rand${bench_rand}       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R ${bench_rand} -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-small-rand${bench_rand}.dat")
-  set(karman_vortex_small_rand${bench_rand}_interpol       karman-vortex-small-rand${bench_rand}-interpol       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-small-rand${bench_rand}-interpol.dat")
-  set(karman_vortex_small_sort${bench_rand}       karman-vortex-small-sort${bench_rand}       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R ${bench_rand} -S -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-small-sort${bench_rand}.dat")
+  set(karman_vortex_small_rand${bench_rand}       karman-vortex-small-rand${bench_rand}       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R ${bench_rand} -o
+    "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-small-rand${bench_rand}.dat")
+  set(karman_vortex_small_rand${bench_rand}_interpol       karman-vortex-small-rand${bench_rand}-interpol       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R
+    ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-small-rand${bench_rand}-interpol.dat")
+  set(karman_vortex_small_sort${bench_rand}       karman-vortex-small-sort${bench_rand}       -t 1000 -x 511  -y 150 -r 0.2 -s 1. -R ${bench_rand} -S
+    -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-small-sort${bench_rand}.dat")
   list(APPEND LBM_RESILIENCE_TEST_SMALL_BENCHMARKS karman_vortex_small_rand${bench_rand} karman_vortex_small_rand${bench_rand}_interpol karman_vortex_small_sort${bench_rand})
-  set(karman_vortex_elongated_rand${bench_rand}   karman-vortex-elongated-rand${bench_rand}   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R ${bench_rand} -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-elongated-rand${bench_rand}.dat")
-  set(karman_vortex_elongated_rand${bench_rand}_interpol   karman-vortex-elongated-rand${bench_rand}-interpol   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-elongated-rand${bench_rand}-interpol.dat")
-  set(karman_vortex_elongated_sort${bench_rand}   karman-vortex-elongated-sort${bench_rand}   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R ${bench_rand} -S -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-elongated-sort${bench_rand}.dat")
+  set(karman_vortex_elongated_rand${bench_rand}   karman-vortex-elongated-rand${bench_rand}   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R ${bench_rand} -o
+    "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-elongated-rand${bench_rand}.dat")
+  set(karman_vortex_elongated_rand${bench_rand}_interpol   karman-vortex-elongated-rand${bench_rand}-interpol   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R
+    ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-elongated-rand${bench_rand}-interpol.dat")
+  set(karman_vortex_elongated_sort${bench_rand}   karman-vortex-elongated-sort${bench_rand}   -t 250  -x 1023 -y 150 -r 0.2 -s 1. -R ${bench_rand} -S
+    -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-elongated-sort${bench_rand}.dat")
   list(APPEND LBM_RESILIENCE_TEST_ELONGATED_BENCHMARKS karman_vortex_elongated_rand${bench_rand} karman_vortex_elongated_rand${bench_rand}_interpol karman_vortex_elongated_sort${bench_rand})
-  set(karmak_vortex_large_width_rand${bench_rand} karman-vortex-large-width-rand${bench_rand} -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R ${bench_rand} -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-large-width-rand${bench_rand}.dat")
-  set(karmak_vortex_large_width_rand${bench_rand}_interpol karman-vortex-large-width-rand${bench_rand}-interpol -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-large-width-rand${bench_rand}-interpol.dat")
-  set(karmak_vortex_large_width_sort${bench_rand} karman-vortex-large-width-sort${bench_rand} -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R ${bench_rand} -S -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-votex-large-width-sort${bench_rand}.dat")
+  set(karmak_vortex_large_width_rand${bench_rand} karman-vortex-large-width-rand${bench_rand} -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R ${bench_rand} -o
+    "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-large-width-rand${bench_rand}.dat")
+  set(karmak_vortex_large_width_rand${bench_rand}_interpol karman-vortex-large-width-rand${bench_rand}-interpol -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R
+    ${bench_rand} -I -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-large-width-rand${bench_rand}-interpol.dat")
+  set(karmak_vortex_large_width_sort${bench_rand} karman-vortex-large-width-sort${bench_rand} -t 3700 -x 200  -y 175 -r 0.4 -s 1. -R ${bench_rand} -S
+    -o "${LBMRESILIENCETEST_RESULTS_DIR}/karman-vortex-large-width-sort${bench_rand}.dat")
   list(APPEND LBM_RESILIENCE_TEST_LARGE_BENCHMARKS karmak_vortex_large_width_rand${bench_rand} karmak_vortex_large_width_rand${bench_rand}_interpol karmak_vortex_large_width_sort${bench_rand})
 endforeach()
 
@@ -69,7 +78,7 @@ foreach(BENCHMARK IN LISTS LBM_RESILIENCE_TEST_SMALL_BENCHMARKS)
   add_custom_target("${LBM_RESILIENCE_BENCHMARKS_TARGET}-${bench_name}"
     ${CMAKE_COMMAND} -E make_directory "${LBMRESILIENCETEST_RESULTS_DIR}"
     COMMAND lbmResilienceTest ${bench_arguments} ${LBM_RESILIENCE_common_arguments} 1> "${LBMRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
-    COMMAND Rscript ${BENCHMARKS_DIR}/LBMResilienceTest/script/error.R "${LBM_RESULTS_DIR}/karman-votex-small.dat" "${LBMRESILIENCETEST_RESULTS_DIR}/${bench_name}.dat" >> "${LBMRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
+    COMMAND Rscript ${BENCHMARKS_DIR}/LBMResilienceTest/script/error.R "${LBM_RESULTS_DIR}/karman-vortex-small.dat" "${LBMRESILIENCETEST_RESULTS_DIR}/${bench_name}.dat" >> "${LBMRESILIENCETEST_RESULTS_DIR}/${bench_name}" 2>&1
     COMMAND_EXPAND_LISTS
     COMMENT "Running benchmark from LBM Resilience Test: ${bench_name}"
     VERBATIM)

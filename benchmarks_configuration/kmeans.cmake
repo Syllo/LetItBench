@@ -74,7 +74,7 @@ foreach(BENCHMARK IN LISTS KMEANS_BENCHMARKS)
 endforeach()
 
 add_custom_command(OUTPUT "${KMEANS_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_BENCHMARKS_TARGET} -j 8
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${KMEANS_BENCHMARKS_TARGET} -j $(nproc)
   VERBATIM)
 
 generate_benchmark_targets_for(kmeans)

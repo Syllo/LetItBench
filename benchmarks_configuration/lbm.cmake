@@ -73,7 +73,7 @@ foreach(BENCHMARK IN LISTS LBM_BENCHMARKS)
 endforeach()
 
 add_custom_command(OUTPUT "${LBM_RESULTS_DIR}"
-  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${LBM_BENCHMARKS_TARGET} -j 8
+  COMMAND ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR} --target ${LBM_BENCHMARKS_TARGET} -j $(nproc)
   VERBATIM)
 
 generate_benchmark_targets_for(lbm)

@@ -41,6 +41,11 @@ foreach(bench_id IN ITEMS base flame huge)
       "${BENCHMARKS_DIR}/fluidSolverResilienceTest/simulation_setup/2d/${bench_id}" -o "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/fluid-${bench_id}-rand-${bench_rand}-data.dat")
     list(APPEND FLUIDSOLVERRESILIENCETEST_${bench_id}_BENCHMARKS ${bench_id}_rand_${bench_rand})
   endforeach()
+  foreach(bench_rand IN ITEMS "10" "20" "30" "40" "50" "60" "70")
+    set(${bench_id}_sort_${bench_rand}  fluid-${bench_id}-sort-${bench_rand} -R  0.${bench_rand} -S -s
+      "${BENCHMARKS_DIR}/fluidSolverResilienceTest/simulation_setup/2d/${bench_id}" -o "${FLUIDSOLVERRESILIENCETEST_RESULTS_DIR}/fluid-${bench_id}-sort-${bench_rand}-data.dat")
+    list(APPEND FLUIDSOLVERRESILIENCETEST_${bench_id}_BENCHMARKS ${bench_id}_sort_${bench_rand})
+  endforeach()
 endforeach()
 
 set(FLUIDSOLVERRESILIENCETEST_BENCHMARKS
